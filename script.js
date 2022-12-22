@@ -29,12 +29,22 @@ btnAddBook.style.display = 'block'
 });
 
 
-function Book(title,pages,author,status) {
+// function Book(title,pages,author,status) {
+//     this.title = title;
+//     this.pages = pages;
+//     this.author = author;
+//     this.status = status;  }
+  
+class Book{
+  
+  constructor(title,pages,author,status){
     this.title = title;
     this.pages = pages;
     this.author = author;
-    this.status = status;  }
-  
+    this.status = status;
+
+  }
+}
 
 function addBookToLibrary() {
   if (checkRead.checked) {
