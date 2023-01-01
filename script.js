@@ -1,6 +1,7 @@
 const btnAddBook = document.querySelector('#btnAddBook');
 const cards = document.querySelector('.cards');
 
+
 let form = document.querySelector('#form');
 
 const status = document.querySelectorAll('.status');
@@ -12,6 +13,7 @@ const pages = document.querySelector('#pages');
 const author = document.querySelector('#author');
 let checkRead = document.querySelector('#checkRead');
 const submitBook = document.querySelector('#submitBook');
+let bookStatusRead;
 let bookStatus;
 let myLibrary = [];
 let formVisibilty = false;
@@ -27,7 +29,6 @@ displayBook();
 form.style.display = 'none';
 btnAddBook.style.display = 'block'
 });
-
 
 // function Book(title,pages,author,status) {
 //     this.title = title;
@@ -47,19 +48,21 @@ class Book{
 }
 
 function addBookToLibrary() {
+ 
   if (checkRead.checked) {
-    bookStatus = 'READ';
-    
+    bookStatus = true;
   }
   else{
-    bookStatus = 'NOT READ';
+    bookStatus = false;
   }
   const book = new Book(title.value,pages.value,author.value,bookStatus);
+  console.log(bookStatus);
   myLibrary.push(book);
 }
 let index = 0;
 let selectedIndex ;
-let parentNode ;
+let parentNode;
+
 function displayBook(){
   const card = document.createElement('div');
   const bookTitle = document.createElement('div');
@@ -69,22 +72,26 @@ function displayBook(){
   const removeButton = document.createElement('button');
  
   myLibrary.forEach(book => {
+    if (book.status) {
+      bookStatus.classList.add('statusRead');
+      bookStatus.textContent = 'READ';
+     }
+     else{
+      bookStatus.textContent = 'NOT READ'
+      bookStatus.classList.add('status');
+     }
+
     bookTitle.textContent = book.title;
     bookPages.textContent = book.pages;
     bookAuthor.textContent = book.author;
-    bookStatus.textContent = book.status;
+  
     removeButton.textContent = 'REMOVE';
     
     card.classList.add('card');
     bookTitle.classList.add('title');
     bookPages.classList.add('pages');
     bookAuthor.classList.add('author');
-    if (book.status == 'READ') {
-     bookStatus.classList.add('statusRead');
-    }  
-    else{
-      bookStatus.classList.add('status')
-    }
+   
 
     removeButton.classList.add('remove');
     card.setAttribute('index' , index);
@@ -103,7 +110,9 @@ function displayBook(){
     bookStatus.addEventListener('click' ,(e) => {
       if (book.status) {
         bookStatus.textContent = 'NOT READ'
+        console.log(book.status)
         book.status = !book.status;
+        console.log(book.status)
         bookStatus.classList.remove('statusRead');
         bookStatus.classList.add('status');
       }

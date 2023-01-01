@@ -115,4 +115,18 @@ form{
 .statusRead{
   background-color: green;
 }
+.form-field{
+  outline: none;
+  border: none;
+}
+.form-field:focus{
+  border : none;
+  outline: 1px solid green;
+}
+.form-field:not(:focus):invalid{
+  border: 1px solid red;
+}
+.form-field:valid{
+  border: 1px solid blue;
+}
 
